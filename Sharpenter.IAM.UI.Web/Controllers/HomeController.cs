@@ -5,7 +5,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Sharpenter_IAM_UI_Web.Controllers
+namespace Sharpenter.IAM.UI.Web.Controllers
 {
     public class HomeController : Controller
     {

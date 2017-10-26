@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.SpaServices.Webpack;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace Sharpenter_IAM_UI_Web
+namespace Sharpenter.IAM.UI.Web
 {
     public class Startup
     {

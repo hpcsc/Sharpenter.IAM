@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.Logging;
 
-namespace Sharpenter_IAM_UI_Web
+namespace Sharpenter.IAM.UI.Web
 {
     public class Program
     {

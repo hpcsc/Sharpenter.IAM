@@ -4,7 +4,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 
-namespace Sharpenter_IAM_UI_Web.Controllers
+namespace Sharpenter.IAM.UI.Web.Controllers
 {
     [Route("api/[controller]")]
     public class SampleDataController : Controller
