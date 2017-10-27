@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Sharpenter.IAM.UseCases.User;
 
 namespace Sharpenter.IAM.UseCases
 {
@@ -15,6 +16,7 @@ namespace Sharpenter.IAM.UseCases
 
         public void ConfigureContainer(IServiceCollection services)
         {
+            services.AddScoped<IListUserInteractor, ListUserInteractor>();
         }
     }
 }

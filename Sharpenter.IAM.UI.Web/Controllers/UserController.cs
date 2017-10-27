@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using Microsoft.AspNetCore.Mvc;
+using Sharpenter.IAM.UseCases.User;
 using Sharpenter.IAM.UseCases.User.DTO;
 
 namespace Sharpenter.IAM.UI.Web.Controllers
@@ -7,14 +8,18 @@ namespace Sharpenter.IAM.UI.Web.Controllers
     [Route("api/[controller]")]
     public class UserController : Controller
     {
+        private readonly IListUserInteractor _listUserInteractor;
+
+        public UserController(IListUserInteractor listUserInteractor)
+        {
+            _listUserInteractor = listUserInteractor;
+        }
+
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Json(new
-            {
-                Success = true,
-                Messages = new List<string>()
-            });
+            var response = _listUserInteractor.List();
+            return Json(response);
         }
         
         [HttpPost]
