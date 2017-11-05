@@ -7,7 +7,7 @@
   </PropertyGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.All" Version="2.0.0" />
-    <PackageReference Include="Sharpenter.BootstrapperLoader" Version="1.2.4" />
+    <PackageReference Include="Sharpenter.BootstrapperLoader" Version="1.2.5" />
   </ItemGroup>
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Tools" Version="2.0.0" />
@@ -51,13 +51,9 @@
       <RepositoryBuild Include="../Sharpenter.IAM.Repository.EntityFramework/bin/$(Configuration)/netstandard2.0/*" />
       <ItemsToCopy Include="@(InfrastructureBuild);@(RepositoryBuild)" />
     </ItemGroup>
-    <Copy
-            SourceFiles="@(ItemsToCopy)"
-            DestinationFolder="./bin/$(Configuration)/$(TargetFramework)/">
-      <Output
-              TaskParameter="CopiedFiles"
-              ItemName="SuccessfullyCopiedFiles"/>
+    <Copy SourceFiles="@(ItemsToCopy)" DestinationFolder="./bin/$(Configuration)/$(TargetFramework)/">
+      <Output TaskParameter="CopiedFiles" ItemName="SuccessfullyCopiedFiles" />
     </Copy>
-    <Message Importance="High" Text="PostBuild Target successfully copied:%0a@(ItemsToCopy->'- %(fullpath)', '%0a')%0a -> %0a@(SuccessfullyCopiedFiles->'- %(fullpath)', '%0a')"/>
+    <Message Importance="High" Text="PostBuild Target successfully copied:%0a@(ItemsToCopy->'- %(fullpath)', '%0a')%0a -&gt; %0a@(SuccessfullyCopiedFiles->'- %(fullpath)', '%0a')" />
   </Target>
 </Project>
