@@ -17,16 +17,13 @@ namespace Sharpenter.IAM.UI.Web
     public class Startup
     {
         private readonly BootstrapperLoader.BootstrapperLoader _bootstrapperLoader;
-        private IConfiguration _configuration { get; }
 
         public Startup(IConfiguration configuration, IHostingEnvironment env)
         {
-            _configuration = configuration;
-            
             _bootstrapperLoader = new LoaderBuilder()
                 .Use(new FileSystemAssemblyProvider(PlatformServices.Default.Application.ApplicationBasePath, "Sharpenter.IAM*.dll"))
                 .ForClass()
-                    .HasConstructorParameter(_configuration)
+                    .HasConstructorParameter(configuration)
                     .Methods()
                         .Call("ConfigureDevelopment").If(env.IsDevelopment)
                 .Build();

@@ -6,11 +6,11 @@ using Sharpenter.IAM.UseCases.User.DTO;
 namespace Sharpenter.IAM.UI.Web.Controllers
 {
     [Route("api/[controller]")]
-    public class UserController : Controller
+    public class UsersController : Controller
     {
         private readonly IListUserInteractor _listUserInteractor;
 
-        public UserController(IListUserInteractor listUserInteractor)
+        public UsersController(IListUserInteractor listUserInteractor)
         {
             _listUserInteractor = listUserInteractor;
         }

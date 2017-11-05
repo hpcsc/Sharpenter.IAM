@@ -1,19 +1,14 @@
-﻿using System.Linq;
-using System.Net.Http;
-using System.Threading.Tasks;
-using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.TestHost;
-using Newtonsoft.Json.Linq;
+﻿using System.Threading.Tasks;
 using Xunit;
 
-namespace Sharpenter.IAM.UI.Web.Tests.Controllers.UserController
+namespace Sharpenter.IAM.UI.Web.Tests.Controllers.UsersController
 {
     public class ListUsersShould : TestBase
     {
         [Fact]
         public async Task ReturnEmptyResponse_WhenThereIsNoUser()
         {
-            var response = await Get("/api/user");
+            var response = await Get("/api/users");
             response.EnsureSuccessStatusCode();
 
             var responseJson = await ParseResponse(response);

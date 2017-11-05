@@ -14,4 +14,15 @@
   <ItemGroup>
     <ProjectReference Include="..\Sharpenter.IAM.UI.Web\Sharpenter.IAM.UI.Web.csproj" />
   </ItemGroup>
+  <Target Name="PostBuild" AfterTargets="Build">
+    <ItemGroup>
+      <InfrastructureBuild Include="../Sharpenter.IAM.Infrastructure/bin/$(Configuration)/netstandard2.0/*" />
+      <RepositoryBuild Include="../Sharpenter.IAM.Repository.EntityFramework/bin/$(Configuration)/netstandard2.0/*" />
+      <ItemsToCopy Include="@(InfrastructureBuild);@(RepositoryBuild)" />
+    </ItemGroup>
+    <Copy SourceFiles="@(ItemsToCopy)" DestinationFolder="./bin/$(Configuration)/$(TargetFramework)/">
+      <Output TaskParameter="CopiedFiles" ItemName="SuccessfullyCopiedFiles" />
+    </Copy>
+    <Message Importance="High" Text="PostBuild Target successfully copied:%0a@(ItemsToCopy->'- %(fullpath)', '%0a')%0a -&gt; %0a@(SuccessfullyCopiedFiles->'- %(fullpath)', '%0a')" />
+  </Target>
 </Project>
