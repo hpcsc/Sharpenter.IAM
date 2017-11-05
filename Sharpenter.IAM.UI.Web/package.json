@@ -1,5 +1,5 @@
 {
-  "name": "Sharpenter_IAM_UI_Web",
+  "name": "sharpenter-iam-web",
   "private": true,
   "version": "0.0.0",
   "dependencies": {
