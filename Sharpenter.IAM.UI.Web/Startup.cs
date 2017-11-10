@@ -24,8 +24,14 @@ namespace Sharpenter.IAM.UI.Web
                 .Use(new FileSystemAssemblyProvider(PlatformServices.Default.Application.ApplicationBasePath, "Sharpenter.IAM*.dll"))
                 .ForClass()
                     .HasConstructorParameter(configuration)
-                    .Methods()
-                        .Call("ConfigureDevelopment").If(env.IsDevelopment)
+                    .When(env.IsDevelopment)
+                        .CallConfigure("ConfigureDevelopment")
+                    .And()
+                    .When(() => env.IsDevelopment() || env.IsStaging() || env.IsProduction())
+                        .CallConfigureContainer("ConfigureProductionContainer")
+                    .And()
+                    .When(() => env.IsEnvironment("Test"))
+                        .CallConfigureContainer("ConfigureTestContainer")
                 .Build();
         }
 
@@ -35,7 +41,7 @@ namespace Sharpenter.IAM.UI.Web
         {
             services.AddMvc();
             
-            _bootstrapperLoader.Trigger("ConfigureContainer", services);
+            _bootstrapperLoader.TriggerConfigureContainer(services);
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

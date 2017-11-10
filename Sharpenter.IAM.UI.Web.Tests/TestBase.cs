@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System;
+using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
@@ -16,6 +17,7 @@ namespace Sharpenter.IAM.UI.Web.Tests
         
         protected TestBase()
         {
+            Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Test");
             var server = new TestServer(new WebHostBuilder()
                 .UseStartup<Startup>());
             _client = server.CreateClient();

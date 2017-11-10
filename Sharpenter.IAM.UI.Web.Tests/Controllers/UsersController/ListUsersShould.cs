@@ -13,7 +13,7 @@ namespace Sharpenter.IAM.UI.Web.Tests.Controllers.UsersController
 
             var responseJson = await ParseResponse(response);
             AssertSuccessResponse(responseJson);
-            Assert.Null(responseJson["data"]);
+            Assert.False(responseJson["data"].HasValues);
         }
     }
 }

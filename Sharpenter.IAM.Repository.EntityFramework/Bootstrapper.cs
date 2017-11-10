@@ -15,14 +15,27 @@ namespace Sharpenter.IAM.Repository.EntityFramework
             _configuration = configuration;
         }
 
-        public void ConfigureContainer(IServiceCollection services)
+        public void ConfigureProductionContainer(IServiceCollection services)
         {
-            services.AddScoped<IUserRepository, UserRepository>();
+            RegisterDependencies(services);
             
             services.AddDbContext<IdentityContext>(options => 
                 options.UseSqlServer(_configuration.GetConnectionString("Sharpenter.IAM")));
         }
         
+        public void ConfigureTestContainer(IServiceCollection services)
+        {
+            RegisterDependencies(services);
+
+            services.AddDbContext<IdentityContext>(options => 
+                options.UseInMemoryDatabase("Sharpenter.IAM"));
+        }
+
+        private static void RegisterDependencies(IServiceCollection services)
+        {
+            services.AddScoped<IUserRepository, UserRepository>();
+        }
+
         public void ConfigureDevelopment(IdentityContext context)
         {
             DbInitializer.Seed(context);
