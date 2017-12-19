@@ -2,6 +2,7 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Sharpenter.IAM.Repository.EntityFramework.User;
+using Sharpenter.IAM.UseCases;
 using Sharpenter.IAM.UseCases.User;
 
 namespace Sharpenter.IAM.Repository.EntityFramework
@@ -15,24 +16,17 @@ namespace Sharpenter.IAM.Repository.EntityFramework
             _configuration = configuration;
         }
 
-        public void ConfigureProductionContainer(IServiceCollection services)
+        public void ConfigureContainer(IServiceCollection services)
         {
             RegisterDependencies(services);
             
             services.AddDbContext<IdentityContext>(options => 
                 options.UseSqlServer(_configuration.GetConnectionString("Sharpenter.IAM")));
         }
-        
-        public void ConfigureTestContainer(IServiceCollection services)
-        {
-            RegisterDependencies(services);
-
-            services.AddDbContext<IdentityContext>(options => 
-                options.UseInMemoryDatabase("Sharpenter.IAM"));
-        }
 
         private static void RegisterDependencies(IServiceCollection services)
         {
+            services.AddScoped<IUnitOfWork, UnitOfWork>();
             services.AddScoped<IUserRepository, UserRepository>();
         }
 

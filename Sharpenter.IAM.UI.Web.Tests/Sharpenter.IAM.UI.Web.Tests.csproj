@@ -12,6 +12,7 @@
     <PackageReference Include="xunit.runner.visualstudio" Version="2.2.0" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\Sharpenter.IAM.Repository.EntityFramework\Sharpenter.IAM.Repository.EntityFramework.csproj" />
     <ProjectReference Include="..\Sharpenter.IAM.UI.Web\Sharpenter.IAM.UI.Web.csproj" />
   </ItemGroup>
   <Target Name="PostBuild" AfterTargets="Build">

@@ -21,7 +21,6 @@ namespace Sharpenter.IAM.Repository.EntityFramework.User
         public void Add(Core.User user)
         {
             _context.Set<Core.User>().Add(user);
-            _context.SaveChanges();
         }
     }
 }

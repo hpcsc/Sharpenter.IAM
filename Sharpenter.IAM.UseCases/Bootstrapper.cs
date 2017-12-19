@@ -17,6 +17,7 @@ namespace Sharpenter.IAM.UseCases
         public void ConfigureContainer(IServiceCollection services)
         {
             services.AddScoped<IListUserInteractor, ListUserInteractor>();
+            services.AddScoped<ICreateUserInteractor, CreateUserInteractor>();
         }
     }
 }

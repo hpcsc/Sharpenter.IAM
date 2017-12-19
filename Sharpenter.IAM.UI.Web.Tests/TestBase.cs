@@ -3,24 +3,40 @@ using System.Linq;
 using System.Net.Http;
 using System.Text;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.TestHost;
+using Microsoft.EntityFrameworkCore;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using Sharpenter.IAM.Repository.EntityFramework;
 using Xunit;
 
 namespace Sharpenter.IAM.UI.Web.Tests
 {
+    [Collection("DatabaseCollection")]
     public class TestBase
     {
         private readonly HttpClient _client;
-        
+
         protected TestBase()
         {
-            Environment.SetEnvironmentVariable("ASPNETCORE_ENVIRONMENT", "Test");
-            var server = new TestServer(new WebHostBuilder()
-                .UseStartup<Startup>());
+            var server = new TestServer(
+                WebHost.CreateDefaultBuilder()
+                    .UseEnvironment("Test")
+                    .UseStartup<Startup>()
+            );
+            
             _client = server.CreateClient();
+        }
+
+        protected void Execute(Action<IdentityContext> action)
+        {
+            var optionsBuilder = new DbContextOptionsBuilder<IdentityContext>().UseSqlServer(Config.TestConnectionString);
+            using (var context = new IdentityContext(optionsBuilder.Options))
+            {
+                action(context);
+            }
         }
 
         protected Task<HttpResponseMessage> Get(string url)

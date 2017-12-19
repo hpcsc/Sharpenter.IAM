@@ -26,12 +26,6 @@ namespace Sharpenter.IAM.UI.Web
                     .HasConstructorParameter(configuration)
                     .When(env.IsDevelopment)
                         .CallConfigure("ConfigureDevelopment")
-                    .And()
-                    .When(() => env.IsDevelopment() || env.IsStaging() || env.IsProduction())
-                        .CallConfigureContainer("ConfigureProductionContainer")
-                    .And()
-                    .When(() => env.IsEnvironment("Test"))
-                        .CallConfigureContainer("ConfigureTestContainer")
                 .Build();
         }
 

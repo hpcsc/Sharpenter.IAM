@@ -9,10 +9,12 @@ namespace Sharpenter.IAM.UI.Web.Controllers
     public class UsersController : Controller
     {
         private readonly IListUserInteractor _listUserInteractor;
+        private readonly ICreateUserInteractor _createUserInteractor;
 
-        public UsersController(IListUserInteractor listUserInteractor)
+        public UsersController(IListUserInteractor listUserInteractor, ICreateUserInteractor createUserInteractor)
         {
             _listUserInteractor = listUserInteractor;
+            _createUserInteractor = createUserInteractor;
         }
 
         [HttpGet]
@@ -25,11 +27,8 @@ namespace Sharpenter.IAM.UI.Web.Controllers
         [HttpPost]
         public IActionResult Create([FromBody]CreateUserRequest request)
         {
-            return Json(new
-            {
-                Success = true,
-                Messages = new List<string>()
-            });
+            var response = _createUserInteractor.Create(request);
+            return Json(response);
         }
     }
 }
